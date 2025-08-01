@@ -1,0 +1,28 @@
+
+.stat_container{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.table_container {
+  padding:20px 0px;
+  background-color: "#f8fafc";
+  min-height: "100vh";
+}
+
+.savings_card{
+    background-color: #FFEBF0;
+}
+.loan_card{
+    background-color: #FDEFEB;
+}
+.user_card{
+    background-color: #FBE8FF;
+}
+.active_card{
+    background-color: #EEE8FF;
+}
