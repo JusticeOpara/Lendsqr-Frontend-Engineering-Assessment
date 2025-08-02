@@ -1,3 +1,4 @@
+import { DashboardLayout } from '@/layout';
 import { Metadata } from 'next';
 import React from 'react'
 
@@ -6,8 +7,11 @@ export const metadata: Metadata = {
 };
 
 const UserDetails = () => {
+
   return (
-    <div>page</div>
+    <DashboardLayout>
+       <UserDetails/>
+    </DashboardLayout>
   )
 }
 

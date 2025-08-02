@@ -6,7 +6,7 @@ interface TableColumn {
 
 interface TableRow {
   id: string;
-  [key: string]: string | number | boolean | undefined;
+  [key: string]: string;
 }
 
 interface TableProps {

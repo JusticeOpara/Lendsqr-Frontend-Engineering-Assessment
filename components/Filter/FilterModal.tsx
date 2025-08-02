@@ -1,10 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
-// import {
-//   ChevronDown,
-//   Calendar,
-// } from "lucide-react";
+import { AppIcons } from "@/elements";
+import styles from "./filter.module.scss"
 
-// Filter Modal Component
+
 const FilterModal: React.FC<{
   isOpen: boolean;
   onClose: () => void;
@@ -63,23 +61,23 @@ const FilterModal: React.FC<{
 
   return (
     <>
-      <div className="modal-overlay" onClick={onClose} />
+      <div className={styles.modal_overlay} onClick={onClose} />
       <div
         ref={modalRef}
-        className="filter-modal"
+        className={styles.filter_modal}
         style={{
           position: "absolute",
           top: position.top + 10,
-          left: position.left - 200,
+          left: position.left + 2,
           zIndex: 1000,
         }}
       >
-        <div className="filter-form">
-          <div className="form-group">
-            <label className="form-label">Organization</label>
-            <div className="select-wrapper">
+        <div className={styles.filter_form}>
+          <div className={styles.form_group}>
+            <label className={styles.form_label}>Organization</label>
+            <div className={styles.select_wrapper}>
               <select
-                className="form-select"
+                className={styles.form_select}
                 value={formData.organization}
                 onChange={(e) =>
                   handleInputChange("organization", e.target.value)
@@ -90,62 +88,63 @@ const FilterModal: React.FC<{
                 <option value="irorun">Irorun</option>
                 <option value="lendstar">Lendstar</option>
               </select>
-              <ChevronDown className="select-icon" size={16} />
+             <span>{AppIcons.ic_dropdown}</span>  
             </div>
           </div>
 
-          <div className="form-group">
-            <label className="form-label">Username</label>
+          <div className={styles.form_group}>
+            <label className={styles.form_label}>Username</label>
             <input
               type="text"
-              className="form-input"
+              className={styles.form_input}
               placeholder="User"
               value={formData.username}
               onChange={(e) => handleInputChange("username", e.target.value)}
             />
           </div>
 
-          <div className="form-group">
-            <label className="form-label">Email</label>
+          <div className={styles.form_group}>
+            <label className={styles.form_label}>Email</label>
             <input
               type="email"
-              className="form-input"
+              className={styles.form_input}
               placeholder="Email"
               value={formData.email}
               onChange={(e) => handleInputChange("email", e.target.value)}
             />
           </div>
 
-          <div className="form-group">
-            <label className="form-label">Date</label>
-            <div className="date-input-wrapper">
+          <div className={styles.form_group}>
+            <label className={styles.form_label}>Date</label>
+            {/* <div className={styles.date_input_wrapper}> */}
               <input
-                type="text"
-                className="form-input date-input"
+                type="date"
+                
+                className={`${styles.form_input} ${styles.date_input}`}
                 placeholder="Date"
                 value={formData.date}
                 onChange={(e) => handleInputChange("date", e.target.value)}
               />
-              <Calendar className="date-icon" size={16} />
-            </div>
+             {/* <span>{AppIcons.ic_calendar}</span>   */}
+            {/* </div> */}
           </div>
 
-          <div className="form-group">
-            <label className="form-label">Phone Number</label>
+          <div className={styles.form_group}>
+            <label className={styles.form_label}>Phone Number</label>
             <input
               type="tel"
-              className="form-input"
+              className={styles.form_input}
               placeholder="Phone Number"
               value={formData.phoneNumber}
               onChange={(e) => handleInputChange("phoneNumber", e.target.value)}
             />
           </div>
 
-          <div className="form-group">
-            <label className="form-label">Status</label>
-            <div className="select-wrapper">
+          <div className={styles.form_group}>
+            <label className={styles.form_label}>Status</label>
+            <div className={styles.select_wrapper}>
               <select
-                className="form-select"
+                className={styles.form_select}
                 value={formData.status}
                 onChange={(e) => handleInputChange("status", e.target.value)}
               >
@@ -155,23 +154,21 @@ const FilterModal: React.FC<{
                 <option value="pending">Pending</option>
                 <option value="blacklisted">Blacklisted</option>
               </select>
-              <ChevronDown className="select-icon" size={16} />
+              <span>{AppIcons.ic_dropdown}</span>
             </div>
           </div>
 
-          <div className="form-actions">
-            <button type="button" className="reset-btn" onClick={handleReset}>
+          <div className={styles.form_actions}>
+            <button type="button" className={styles.reset_btn} onClick={handleReset}>
               Reset
             </button>
-            <button type="button" className="filter-btn" onClick={handleFilter}>
+            <button type="button" className={styles.filter_btn} onClick={handleFilter}>
               Filter
             </button>
           </div>
         </div>
       </div>
-
-   
     </>
   );
 };
-
+export default FilterModal;

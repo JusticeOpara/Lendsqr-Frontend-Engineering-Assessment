@@ -1,5 +1,6 @@
 $color-primary: #213F7D;
 
+
 .navbar {
   position: fixed;
   top: 0;
@@ -42,7 +43,7 @@ $color-primary: #213F7D;
   }
 
   button {
-    background-color: #49cdca;
+    background-color: #39CDCC;
     padding: 0 1rem;
     border: none;
     cursor: pointer;
@@ -87,6 +88,7 @@ $color-primary: #213F7D;
   }
 }
 
+
 //SIDENAVIGATION
 .side_navigation {
   width: 283px;
@@ -94,10 +96,13 @@ $color-primary: #213F7D;
   background: #ffffff;
   border-right: 1px solid #e5e7eb;
   display: flex;
+  overflow-y: auto;
   flex-direction: column;
+   -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 
   .organization_switcher {
-    padding: 20px 24px;
+     padding: 20px 24px;
     border-bottom: 1px solid #f3f4f6;
     display: flex;
     align-items: center;
@@ -123,7 +128,7 @@ $color-primary: #213F7D;
     .org_text {
       font-size: 16px;
       font-weight: 500;
-      color: #213f7d;
+      color: $color-primary;
       flex: 1;
     }
 
@@ -135,7 +140,10 @@ $color-primary: #213F7D;
   .side_menu {
     flex: 1;
     overflow-y: auto;
-    padding: 20px 0;
+    background:white;
+    //  padding: 20px 0;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
 
     .side_section {
       margin-bottom: 32px;
@@ -145,9 +153,8 @@ $color-primary: #213F7D;
         font-weight: 500;
         color: #545f7d;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 0px;
         padding: 0 24px 16px;
-        // margin-bottom: 4px;
       }
 
       .side_list {
@@ -161,10 +168,10 @@ $color-primary: #213F7D;
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 12px 24px;
+            padding: 6px 24px;
             border: none;
             background: none;
-            color: #213f7d;
+            color: $color-primary;
             font-size: 16px;
             font-weight: 400;
             text-align: left;
@@ -174,12 +181,12 @@ $color-primary: #213F7D;
 
             &:hover {
               background-color: rgba(57, 205, 204, 0.06);
-              color: #213f7d;
+              color: $color-primary;
             }
 
             &.active {
               background-color: rgba(57, 205, 204, 0.06);
-              color: #213f7d;
+              color: $color-primary;
               font-weight: 500;
               border-right: 3px solid #39cdcc;
 

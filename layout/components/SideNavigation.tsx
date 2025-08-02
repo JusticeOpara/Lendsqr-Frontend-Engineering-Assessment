@@ -1,13 +1,13 @@
 "use client";
 
-import { NavIcons } from "@/elements";
+import { NavIcons, SideIcons } from "@/elements";
 import styles from "./navigation.module.scss";
 import React, { JSX, useCallback, useMemo, useState } from "react";
 
 interface NavigationItem {
   label: string;
   href: string;
-  icon: (active: boolean) => JSX.Element;
+  icon: JSX.Element;
 }
 
 interface NavigationSection {
@@ -54,26 +54,96 @@ const SideNavigation = () => {
           {
             label: "Savings",
             href: "/savings",
-            icon: NavIcons.ic_loans, 
+            icon: NavIcons.ic_loans,
           },
           {
             label: "Loan Requests",
             href: "/loan-requests",
-            icon: NavIcons.ic_loans, 
+            icon: NavIcons.ic_loans,
           },
           {
             label: "Whitelist",
             href: "/whitelist",
-            icon: NavIcons.ic_users, 
+            icon: NavIcons.ic_users,
           },
           {
             label: "Karma",
             href: "/karma",
-            icon: NavIcons.ic_home,
+            icon: SideIcons.ic_karma,
           },
         ],
       },
-       
+      {
+        title: "BUSINESSES",
+        items: [
+          {
+            label: "Organization",
+            href: "/organization",
+            icon: SideIcons.ic_organization,
+          },
+          {
+            label: "Loan Products",
+            href: "/loan-products",
+            icon: SideIcons.ic_loan_request,
+          },
+          {
+            label: "Saving Products",
+            href: "/saving-products",
+            icon: SideIcons.ic_savings_products,
+          },
+          {
+            label: "Fees and Charges",
+            href: "/fees-charges",
+            icon: SideIcons.ic_fees_charges,
+          },
+          {
+            label: "Transactions",
+            href: "/transactions",
+            icon: SideIcons.ic_transaction,
+          },
+          {
+            label: "Services",
+            href: "/services",
+            icon: SideIcons.ic_service,
+          },
+          {
+            label: "Service Account",
+            href: "/service-account",
+            icon: SideIcons.ic_service_account,
+          },
+          {
+            label: "Settlements",
+            href: "/settlements",
+            icon: SideIcons.ic_settlement,
+          },
+          {
+            label: "Reports",
+            href: "/reports",
+            icon: SideIcons.ic_reports,
+          },
+        ],
+      },
+
+      {
+        title: "SETTINGS",
+        items: [
+          {
+            label: "Perferences",
+            href: "/perferences",
+            icon: SideIcons.ic_perferences,
+          },
+          {
+            label: "Fees and Pricing",
+            href: "/loan-products",
+            icon: SideIcons.ic_fees_pricing,
+          },
+          {
+            label: "Audit Logs",
+            href: "/audit-logs",
+            icon: SideIcons.ic_audit_logs,
+          },
+        ],
+      },
     ],
     []
   );
@@ -92,7 +162,7 @@ const SideNavigation = () => {
     <div className={styles.side_navigation}>
       {/* Organization Switcher */}
       <div className={styles.organization_switcher}>
-        {NavIcons.ic_guarantors(true)}
+        {SideIcons.ic_organization}
         <span className={styles.org_text}>Switch Organization</span>
       </div>
 
@@ -104,7 +174,6 @@ const SideNavigation = () => {
               <div className={styles.section_title}>{section.title}</div>
             )}
 
-            
             <ul className={styles.side_list}>
               {section.items.map((item, itemIndex) => {
                 const isActive = isActiveLink(item.href);
@@ -117,7 +186,7 @@ const SideNavigation = () => {
                       }`}
                       onClick={() => handleNavClick(item.href)}
                     >
-                      {item.icon(isActive)}
+                      {item.icon}
                       <span className={styles.side_label}>{item.label}</span>
                     </button>
                   </li>
