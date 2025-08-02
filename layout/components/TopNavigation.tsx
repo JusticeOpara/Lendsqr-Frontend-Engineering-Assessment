@@ -2,7 +2,8 @@ import React from "react";
 import styles from "./navigation.module.scss";
 import lendsqr from "@/public/assets/lendsqr-logo.svg";
 import Image from "next/image";
-// import { NavIcons } from "@/elements";
+import { NavIcons } from "@/elements";
+
 
 interface NavbarProps {
   userName: string;
@@ -13,7 +14,7 @@ const TopNavigation: React.FC<NavbarProps> = ({ userName, avatar }) => {
   return (
     <nav className={styles.navbar}>
       <div className={styles.left}>
-        <Image src={lendsqr} alt="logo" width={100} height={30} />
+        <Image src={lendsqr} alt="logo" width={145} height={145} />
         <div className={styles.search}>
           <input type="text" placeholder="Search for anything" />
           <button>
@@ -29,12 +30,14 @@ const TopNavigation: React.FC<NavbarProps> = ({ userName, avatar }) => {
           </button>
         </div>
       </div>
+
       <div className={styles.right}>
         <a href="#">Docs</a>
         
-        {/* <Image src={NavIcons.ic_alert} className="" alt="alert" /> */}
+        {NavIcons.ic_alert}
+        
         <div className={styles.profile}>
-          <Image src={avatar} alt="User avatar" width={30} height={30} />
+          <Image src={avatar} alt="User avatar" width={48} height={48} />
           <span>{userName}</span>
           <span className={styles.arrow}>▾</span>
         </div>

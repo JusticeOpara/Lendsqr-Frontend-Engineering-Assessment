@@ -2,7 +2,7 @@
 
 import { NavIcons, SideIcons } from "@/elements";
 import styles from "./navigation.module.scss";
-import React, { JSX, useCallback, useMemo, useState } from "react";
+import React, { JSX, useCallback, useEffect, useMemo, useState } from "react";
 
 interface NavigationItem {
   label: string;
@@ -49,22 +49,22 @@ const SideNavigation = () => {
           {
             label: "Decision Models",
             href: "/decision-models",
-            icon: NavIcons.ic_decision_models,
+            icon: SideIcons.ic_decision,
           },
           {
             label: "Savings",
             href: "/savings",
-            icon: NavIcons.ic_loans,
+            icon: SideIcons.ic_saving,
           },
           {
             label: "Loan Requests",
             href: "/loan-requests",
-            icon: NavIcons.ic_loans,
+            icon: SideIcons.ic_loan_request,
           },
           {
             label: "Whitelist",
             href: "/whitelist",
-            icon: NavIcons.ic_users,
+            icon: SideIcons.ic_whitelist,
           },
           {
             label: "Karma",
@@ -158,45 +158,105 @@ const SideNavigation = () => {
   const handleNavClick = (href: string) => {
     setCurrentPath(href);
   };
+  const [isMobileExpanded, setIsMobileExpanded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      if (window.innerWidth > 768) {
+        setIsMobileExpanded(false);
+      }
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
+  const handleMobileToggle = () => {
+    setIsMobileExpanded(!isMobileExpanded);
+  };
+
+  const handleNavClickMobile = (href: string) => {
+    handleNavClick(href);
+    if (isMobile) {
+      setIsMobileExpanded(false);
+    }
+  };
+
+  const handleOverlayClick = () => {
+    setIsMobileExpanded(false);
+  };
+
   return (
-    <div className={styles.side_navigation}>
-      {/* Organization Switcher */}
-      <div className={styles.organization_switcher}>
-        {SideIcons.ic_organization}
-        <span className={styles.org_text}>Switch Organization</span>
-      </div>
+    
+    <>
+      {/* Mobile menu toggle button */}
+      {isMobile && (
+        <button
+          className={styles.mobile_menu_toggle}
+          onClick={handleMobileToggle}
+          aria-label="Toggle navigation menu"
+        >
+          {'☰'}
+        </button>
+      )}
 
-      {/* Navigation Menu */}
-      <nav className={styles.side_menu}>
-        {navigationSections.map((section, sectionIndex) => (
-          <div key={sectionIndex} className={styles.side_section}>
-            {section.title && (
-              <div className={styles.section_title}>{section.title}</div>
-            )}
+      {/* Overlay for mobile */}
+      {isMobile && (
+        <div 
+          className={`${styles.sidebar_overlay} ${isMobileExpanded ? styles.active : ''}`}
+          onClick={handleOverlayClick}
+        />
+      )}
 
-            <ul className={styles.side_list}>
-              {section.items.map((item, itemIndex) => {
-                const isActive = isActiveLink(item.href);
-
-                return (
-                  <li key={itemIndex} className={styles.side_item}>
-                    <button
-                      className={`${styles.side_link} ${
-                        isActive ? "active" : ""
-                      }`}
-                      onClick={() => handleNavClick(item.href)}
-                    >
-                      {item.icon}
-                      <span className={styles.side_label}>{item.label}</span>
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
+      <div className={`${styles.side_navigation} ${isMobileExpanded ? styles.mobile_expanded : ''}`}>
+        <nav className={styles.side_menu}>
+          <div className={styles.organization_switcher}>
+            <div className={styles.org_icon}>
+              {SideIcons.ic_organization}
+            </div>
+            <span className={styles.org_text}>Switch Organization</span>
+            <div className={styles.chevron}>
+              {SideIcons.ic_service || '▼'}x
+            </div>
           </div>
-        ))}
-      </nav>
-    </div>
+
+          {navigationSections.map((section, sectionIndex) => (
+            <div key={sectionIndex} className={styles.side_section}>
+              {section.title && (
+                <div className={styles.section_title}>{section.title}</div>
+              )}
+
+              <ul className={styles.side_list}>
+                {section.items.map((item, itemIndex) => {
+                  const isActive = isActiveLink(item.href);
+
+                  return (
+                    <li key={itemIndex} className={styles.side_item}>
+                      <button
+                        className={`${styles.side_link} ${
+                          isActive ? styles.active : ""
+                        }`}
+                        onClick={() => handleNavClickMobile(item.href)}
+                        title={isMobile && !isMobileExpanded ? item.label : undefined}
+                      >
+                        <div className={styles.side_icon}>
+                          {item.icon}
+                        </div>
+                        <span className={styles.side_label}>{item.label}</span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
+        </nav>
+      </div>
+    </>
   );
 };
 export default SideNavigation;

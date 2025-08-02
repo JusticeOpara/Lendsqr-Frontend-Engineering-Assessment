@@ -1,12 +1,13 @@
 import { DashboardLayout } from '@/layout';
 import { Metadata } from 'next';
 import React from 'react'
+import { UserDetails } from '@/features/user';
 
 export const metadata: Metadata = {
   title: "Leadsqr UserDetails",
 };
 
-const UserDetails = () => {
+const UserDetailsPage = () => {
 
   return (
     <DashboardLayout>
@@ -15,4 +16,4 @@ const UserDetails = () => {
   )
 }
 
-export default UserDetails
+export default UserDetailsPage

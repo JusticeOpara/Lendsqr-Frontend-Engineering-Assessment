@@ -1,14 +1,14 @@
-$color-primary: #213F7D;
-
+$color-primary: #213f7d;
 
 .navbar {
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%; 
+  right: 0;
+  //  left: 0;
+  width: 100%;
   height: 70px;
   background: white;
-  // z-index: 1000;
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,7 +19,7 @@ $color-primary: #213F7D;
 .left {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 169px;
 }
 
 .search {
@@ -29,21 +29,27 @@ $color-primary: #213F7D;
   overflow: hidden;
   height: 40px;
 
+
+  // @media (max-width: 760px) {
+  //   display: hidden;
+  //   background: #000;
+  // }
+
   input {
     border: none;
     padding: 0 1rem;
     outline: none;
     font-size: 14px;
-    width: 200px;
-    color: #4b5563;
+    width: 400px;
+    color: #545f7d;
 
     &::placeholder {
-      color: #9ca3af;
+      color: #545f7d;
     }
   }
 
   button {
-    background-color: #39CDCC;
+    background-color: #39cdcc;
     padding: 0 1rem;
     border: none;
     cursor: pointer;
@@ -88,27 +94,45 @@ $color-primary: #213F7D;
   }
 }
 
-
 //SIDENAVIGATION
+
 .side_navigation {
   width: 283px;
-  height: 100%;
+  height: 100vh;
   background: #ffffff;
   border-right: 1px solid #e5e7eb;
   display: flex;
-  overflow-y: auto;
+  overflow: hidden;
   flex-direction: column;
-   -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+  transition: width 0.3s ease;
+
+  // Mobile responsive breakpoints
+  @media (max-width: 768px) {
+    width: 70px;
+  }
+
+  @media (max-width: 480px) {
+    width: 60px;
+  }
 
   .organization_switcher {
-     padding: 20px 24px;
+    padding: 20px 24px;
     border-bottom: 1px solid #f3f4f6;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     gap: 12px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
+
+    @media (max-width: 768px) {
+      padding: 20px 12px;
+      justify-content: center;
+    }
+
+    @media (max-width: 480px) {
+      padding: 16px 8px;
+    }
 
     &:hover {
       background-color: #f9fafb;
@@ -123,6 +147,12 @@ $color-primary: #213F7D;
       align-items: center;
       justify-content: center;
       color: white;
+      flex-shrink: 0;
+
+      @media (max-width: 480px) {
+        width: 28px;
+        height: 28px;
+      }
     }
 
     .org_text {
@@ -130,23 +160,53 @@ $color-primary: #213F7D;
       font-weight: 500;
       color: $color-primary;
       flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+
+      @media (max-width: 768px) {
+        display: none;
+      }
     }
 
     .chevron {
       color: #545f7d;
+
+      @media (max-width: 768px) {
+        display: none;
+      }
     }
   }
 
   .side_menu {
     flex: 1;
     overflow-y: auto;
-    background:white;
-    //  padding: 20px 0;
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    background: white;
+    padding: 20px 0;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    @media (max-width: 768px) {
+      padding: 16px 0;
+    }
+
+    @media (max-width: 480px) {
+      padding: 12px 0;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     .side_section {
       margin-bottom: 32px;
+
+      @media (max-width: 768px) {
+        margin-bottom: 24px;
+      }
+
+      @media (max-width: 480px) {
+        margin-bottom: 20px;
+      }
 
       .section_title {
         font-size: 12px;
@@ -155,6 +215,10 @@ $color-primary: #213F7D;
         text-transform: uppercase;
         letter-spacing: 0px;
         padding: 0 24px 16px;
+
+        @media (max-width: 768px) {
+          display: none;
+        }
       }
 
       .side_list {
@@ -179,6 +243,16 @@ $color-primary: #213F7D;
             transition: all 0.2s ease;
             position: relative;
 
+            @media (max-width: 768px) {
+              padding: 8px 12px;
+              justify-content: center;
+              gap: 0;
+            }
+
+            @media (max-width: 480px) {
+              padding: 6px 8px;
+            }
+
             &:hover {
               background-color: rgba(57, 205, 204, 0.06);
               color: $color-primary;
@@ -190,6 +264,11 @@ $color-primary: #213F7D;
               font-weight: 500;
               border-right: 3px solid #39cdcc;
 
+              @media (max-width: 768px) {
+                border-right: none;
+                border-left: 3px solid #39cdcc;
+              }
+
               .side_icon {
                 color: #39cdcc;
               }
@@ -199,6 +278,16 @@ $color-primary: #213F7D;
               flex-shrink: 0;
               color: #545f7d;
               transition: color 0.2s ease;
+              width: 20px;
+              height: 20px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              @media (max-width: 480px) {
+                width: 18px;
+                height: 18px;
+              }
             }
 
             .side_label {
@@ -206,44 +295,85 @@ $color-primary: #213F7D;
               white-space: nowrap;
               font-size: 16px;
               color: $color-primary;
+              overflow: hidden;
+
+              @media (max-width: 768px) {
+                display: none;
+              }
             }
           }
         }
       }
     }
   }
+}
 
-  // Scrollbar styling
-  // .side-menu::-webkit-scrollbar {
-  //   width: 4px;
-  // }
+// Additional styles for mobile menu toggle (optional)
+.mobile_menu_toggle {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: #39cdcc;
+  border: none;
+  border-radius: 4px;
+  padding: 8px;
+  color: white;
+  cursor: pointer;
 
-  // .side-menu::-webkit-scrollbar-track {
-  //   background: transparent;
-  // }
-
-  // .side-menu::-webkit-scrollbar-thumb {
-  //   background: #d1d5db;
-  //   border-radius: 2px;
-  // }
-
-  // .side-menu::-webkit-scrollbar-thumb:hover {
-  //   background: #9ca3af;
-  // }
-
-  // Responsive design
   @media (max-width: 768px) {
-    width: 100%;
-    height: auto;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
+    display: block;
+  }
+}
 
-    &.mobile-open {
-      transform: translateX(0);
+// Overlay for mobile when sidebar is expanded (optional enhancement)
+.sidebar_overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+
+  @media (max-width: 768px) {
+    &.active {
+      display: block;
+    }
+  }
+}
+
+// Expanded mobile state (for toggle functionality)
+.side_navigation.mobile_expanded {
+  @media (max-width: 768px) {
+    width: 283px;
+    position: fixed;
+    z-index: 1000;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+
+    .org_text,
+    .chevron,
+    .section_title,
+    .side_label {
+      display: block;
+    }
+
+    .organization_switcher {
+      padding: 20px 24px;
+      justify-content: flex-start;
+    }
+
+    .side_link {
+      padding: 6px 24px !important;
+      justify-content: flex-start !important;
+      gap: 12px !important;
+
+      &.active {
+        border-right: 3px solid #39cdcc !important;
+        border-left: none !important;
+      }
     }
   }
 }

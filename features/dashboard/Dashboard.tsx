@@ -11,7 +11,9 @@ import { columns, sampleData } from "@/mock/user";
 const Dashboard = () => {
   return (
     <div className={styles.sect}>
+       <h1 className={styles.stat_header}>Users</h1>
       <div className={styles.stat_container}>
+       
         <StatCard
           icon={<Image src={user} alt="users" width={24} height={24} />}
           label="Users"
