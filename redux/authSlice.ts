@@ -37,8 +37,7 @@
 // export const { login, logout, loadUserFromStorage } = authSlice.actions;
 // export default authSlice.reducer;
 
-
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface User {
   id: string;
@@ -59,26 +58,26 @@ const initialState: AuthState = {
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     login: (state, action: PayloadAction<User>) => {
       state.isAuthenticated = true;
       state.loggedUser = action.payload;
-      localStorage.setItem('auth', JSON.stringify(action.payload));
+      localStorage.setItem("auth", JSON.stringify(action.payload));
     },
     logout: (state) => {
       state.isAuthenticated = false;
       state.loggedUser = null;
-      localStorage.removeItem('auth');
+      localStorage.removeItem("auth");
     },
     setSelectedUser: (state, action: PayloadAction<User>) => {
       state.selectedUser = action.payload;
-      localStorage.setItem('selectedUser', JSON.stringify(action.payload));
+      localStorage.setItem("selectedUser", JSON.stringify(action.payload));
     },
     loadFromStorage: (state) => {
-      const user = localStorage.getItem('auth');
-      const selected = localStorage.getItem('selectedUser');
+      const user = localStorage.getItem("auth");
+      const selected = localStorage.getItem("selectedUser");
       if (user) {
         state.isAuthenticated = true;
         state.loggedUser = JSON.parse(user);
@@ -90,5 +89,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { login, logout, setSelectedUser, loadFromStorage } = authSlice.actions;
+export const { login, logout, setSelectedUser, loadFromStorage } =
+  authSlice.actions;
 export default authSlice.reducer;
