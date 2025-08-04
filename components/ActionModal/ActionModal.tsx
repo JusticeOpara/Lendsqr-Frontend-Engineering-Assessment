@@ -1,7 +1,7 @@
 import { TableRow } from "@/types";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
-import styles from "./actionmodal.module.scss"
+import styles from "./actionmodal.module.scss";
 import { AppIcons } from "@/elements";
 
 interface ActionProps {
@@ -88,5 +88,4 @@ const ActionModal: React.FC<ActionProps> = ({
     </div>
   );
 };
-export default ActionModal
-
+export default ActionModal;

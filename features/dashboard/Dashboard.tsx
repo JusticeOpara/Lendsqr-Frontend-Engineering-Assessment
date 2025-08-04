@@ -9,7 +9,7 @@ import user from "@/public/assets/users.svg";
 
 import { users, columns } from "@/mock-data/users";
 import { Table } from "@/components/Table";
-import Pagination from "@/components/Pagination";
+import { Pagination } from "@/components/Pagination";
 
 const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState(1);

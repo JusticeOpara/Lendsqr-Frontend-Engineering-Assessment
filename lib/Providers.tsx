@@ -1,7 +1,7 @@
 "use client";
 
 import { store } from "@/redux/store";
-import { FC, ReactNode, Suspense } from "react";
+import { FC, ReactNode } from "react";
 import { Provider as ReduxProvider } from "react-redux";
 
 const Providers: FC<{ children: ReactNode }> = ({ children }) => {
