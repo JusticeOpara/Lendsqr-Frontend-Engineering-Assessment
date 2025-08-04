@@ -1,6 +1,6 @@
 "use client";
 
-import { NavIcons, SideIcons } from "@/elements";
+import { AppIcons, NavIcons, SideIcons } from "@/elements";
 import styles from "./navigation.module.scss";
 import React, { JSX, useCallback, useEffect, useMemo, useState } from "react";
 
@@ -123,7 +123,6 @@ const SideNavigation = () => {
           },
         ],
       },
-
       {
         title: "SETTINGS",
         items: [
@@ -170,9 +169,9 @@ const SideNavigation = () => {
     };
 
     checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
+    window.addEventListener("resize", checkScreenSize);
 
-    return () => window.removeEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
   const handleMobileToggle = () => {
@@ -191,7 +190,6 @@ const SideNavigation = () => {
   };
 
   return (
-    
     <>
       {/* Mobile menu toggle button */}
       {isMobile && (
@@ -200,28 +198,30 @@ const SideNavigation = () => {
           onClick={handleMobileToggle}
           aria-label="Toggle navigation menu"
         >
-          {'☰'}
+          {"☰"}
         </button>
       )}
 
       {/* Overlay for mobile */}
       {isMobile && (
-        <div 
-          className={`${styles.sidebar_overlay} ${isMobileExpanded ? styles.active : ''}`}
+        <div
+          className={`${styles.sidebar_overlay} ${
+            isMobileExpanded ? styles.active : ""
+          }`}
           onClick={handleOverlayClick}
         />
       )}
 
-      <div className={`${styles.side_navigation} ${isMobileExpanded ? styles.mobile_expanded : ''}`}>
+      <div
+        className={`${styles.side_navigation} ${
+          isMobileExpanded ? styles.mobile_expanded : ""
+        }`}
+      >
         <nav className={styles.side_menu}>
           <div className={styles.organization_switcher}>
-            <div className={styles.org_icon}>
-              {SideIcons.ic_organization}
-            </div>
+            <div className={styles.org_icon}>{SideIcons.ic_organization}</div>
             <span className={styles.org_text}>Switch Organization</span>
-            <div className={styles.chevron}>
-              {SideIcons.ic_service || '▼'}x
-            </div>
+            <span>{AppIcons.ic_dropdown}</span>
           </div>
 
           {navigationSections.map((section, sectionIndex) => (
@@ -241,11 +241,11 @@ const SideNavigation = () => {
                           isActive ? styles.active : ""
                         }`}
                         onClick={() => handleNavClickMobile(item.href)}
-                        title={isMobile && !isMobileExpanded ? item.label : undefined}
+                        title={
+                          isMobile && !isMobileExpanded ? item.label : undefined
+                        }
                       >
-                        <div className={styles.side_icon}>
-                          {item.icon}
-                        </div>
+                        <div className={styles.side_icon}>{item.icon}</div>
                         <span className={styles.side_label}>{item.label}</span>
                       </button>
                     </li>

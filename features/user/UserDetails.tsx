@@ -1,17 +1,28 @@
-"use client"
+"use client";
 
-import React from "react";
+import React, { useState } from "react";
 import styles from "./users.module.scss";
 import { AppIcons } from "@/elements";
 import { useRouter } from "next/navigation";
+import user_details from "@/mock-data/users-details";
 
 const UserDetails: React.FC = () => {
-  const { back } = useRouter();
+  const router = useRouter();
+  const [userDetail, setUserDetail] = useState([]);
+
+  const handleGoBack = () => {
+    router.push("/users");
+  };
+
   return (
     <div className={styles.user_details_page}>
       {/* Header */}
       <div className={styles.header}>
-        <button className={styles.back_button} type="button" onClick={() => back()}>
+        <button
+          className={styles.back_button}
+          type="button"
+          onClick={handleGoBack}
+        >
           {AppIcons.ic_back_btn}
           <span>Back to Users</span>
         </button>
@@ -178,7 +189,6 @@ const UserDetails: React.FC = () => {
             </div>
           </div>
         </section>
-      
       </div>
     </div>
   );

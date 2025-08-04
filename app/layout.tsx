@@ -1,5 +1,7 @@
+import { Providers } from "@/lib";
 import type { Metadata } from "next";
 import { Work_Sans } from "next/font/google";
+
 
 const work_sans = Work_Sans({
   subsets: ["latin"],
@@ -19,9 +21,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" >
+    <html lang="en">
       <body className={`${work_sans.variable}`} suppressHydrationWarning>
-        {children}
+        <Providers >
+          {children}
+          </Providers>
       </body>
     </html>
   );

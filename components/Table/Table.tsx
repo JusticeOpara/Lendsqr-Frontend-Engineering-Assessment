@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { AppIcons } from "@/elements";
 import { TableProps, TableRow } from "@/types";
 import styles from "./table.module.scss";
 import { FilterModal } from "../Filter";
-import { useRouter } from "next/navigation";
+import { ActionModal } from "../ActionModal";
+
 
 // Status component
 const StatusBadge: React.FC<{ status: string }> = ({ status }) => {
@@ -42,90 +43,7 @@ const StatusBadge: React.FC<{ status: string }> = ({ status }) => {
   );
 };
 
-interface ActionMenuProps {
-  isOpen: boolean;
-  onClose: () => void;
-  position: { top: number; left: number };
-  rowData: TableRow;
-}
 
-const ActionMenuModal: React.FC<ActionMenuProps> = ({
-  isOpen,
-  onClose,
-  position,
-  rowData,
-}) => {
-  const modalRef = useRef<HTMLDivElement>(null);
-  const { replace } = useRouter();
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
-      ) {
-        onClose();
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen, onClose]);
-
-  const handleViewDetails = (id: string) => {
-    console.log("View Details for:", rowData);
-    replace(`/users/${id}`);
-    onClose();
-  };
-
-  const handleBlacklistUser = () => {
-    console.log("Blacklist User:", rowData);
-    onClose();
-  };
-
-  const handleActivateUser = () => {
-    console.log("Activate User:", rowData);
-    onClose();
-  };
-
-  if (!isOpen) return null;
-
-  return (
-    <div
-      ref={modalRef}
-      className={styles.action_menu_modal}
-      style={{
-        position: "absolute",
-        top: position.top,
-        left: position.left - 150,
-        zIndex: 1000,
-      }}
-    >
-      <div
-        className={styles.action_menu_item}
-        onClick={() => handleViewDetails(rowData.id)}
-      >
-        <span className={styles.icon_menu}>{AppIcons.ic_eye}</span>
-        <span>View Details</span>
-      </div>
-
-      <div className={styles.action_menu_item} onClick={handleBlacklistUser}>
-        <span className={styles.icon_menu}>{AppIcons.ic_delete}</span>
-        <span className={styles.delete_menu}>Blacklist User</span>
-      </div>
-
-      <div className={styles.action_menu_item} onClick={handleActivateUser}>
-        <span className={styles.icon_menu}> {AppIcons.ic_active}</span>
-        <span>Activate User</span>
-      </div>
-    </div>
-  );
-};
 
 const Table: React.FC<TableProps> = ({ columns, data, className }) => {
   const [sortColumn, setSortColumn] = useState<string>("");
@@ -139,6 +57,7 @@ const Table: React.FC<TableProps> = ({ columns, data, className }) => {
     left: 0,
   });
   const [selectedRowData, setSelectedRowData] = useState<TableRow | null>(null);
+
 
   const handleSort = (columnKey: string) => {
     if (columnKey === "organization") {
@@ -195,50 +114,56 @@ const Table: React.FC<TableProps> = ({ columns, data, className }) => {
   return (
     <>
       <div className={`${styles.data_table_container} ${className}`}>
-        <table className={styles.data_table}>
-          <thead>
-            <tr>
-              {columns.map((column) => (
-                <th
-                  key={column.key}
-                  ref={
-                    column.key === "organization" ? organizationHeaderRef : null
-                  }
-                  className={`${styles.table_header} ${
-                    column.sortable ? `${styles.sortable}` : ""
-                  }`}
-                  onClick={() => column.sortable && handleSort(column.key)}
-                >
-                  <div className={styles.header_content}>
-                    <span className={styles.hearder_text}>{column.label}</span>
-                    {column.sortable && AppIcons.ic_filter}
-                  </div>
-                </th>
-              ))}
-              <th className={styles.actions_header}></th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {data.map((row) => (
-              <tr key={row.id} className={styles.table_row}>
+        <div className={styles.table_scroll_wrapper}>
+          <table className={styles.data_table}>
+            <thead>
+              <tr>
                 {columns.map((column) => (
-                  <td key={column.key} className={styles.table_cell}>
-                    {renderCellContent(row[column.key], column.key)}
-                  </td>
-                ))}
-                <td className={`${styles.table_cell} ${styles.actions_cell}`}>
-                  <span
-                    className={styles.actions_button}
-                    onClick={(e) => handleActionClick(e, row)}
+                  <th
+                    key={column.key}
+                    ref={
+                      column.key === "organization"
+                        ? organizationHeaderRef
+                        : null
+                    }
+                    className={`${styles.table_header} ${
+                      column.sortable ? `${styles.sortable}` : ""
+                    }`}
+                    onClick={() => column.sortable && handleSort(column.key)}
                   >
-                    {AppIcons.ic_dot}
-                  </span>
-                </td>
+                    <div className={styles.header_content}>
+                      <span className={styles.hearder_text}>
+                        {column.label}
+                      </span>
+                      {column.sortable && AppIcons.ic_filter}
+                    </div>
+                  </th>
+                ))}
+                <th className={styles.actions_header}></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {data.map((row) => (
+                <tr key={row.id} className={styles.table_row}>
+                  {columns.map((column) => (
+                    <td key={column.key} className={styles.table_cell}>
+                      {renderCellContent(row[column.key], column.key)}
+                    </td>
+                  ))}
+                  <td className={`${styles.table_cell} ${styles.actions_cell}`}>
+                    <span
+                      className={styles.actions_button}
+                      onClick={(e) => handleActionClick(e, row)}
+                    >
+                      {AppIcons.ic_dot}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <FilterModal
@@ -248,11 +173,12 @@ const Table: React.FC<TableProps> = ({ columns, data, className }) => {
       />
 
       {selectedRowData && (
-        <ActionMenuModal
+        <ActionModal
           isOpen={isActionMenuOpen}
           onClose={closeActionMenu}
           position={actionMenuPosition}
           rowData={selectedRowData}
+         
         />
       )}
     </>

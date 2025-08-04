@@ -1,25 +1,56 @@
 $color-primary: #213f7d;
 
 .navbar {
-  position: fixed;
-  top: 0;
-  right: 0;
-  //  left: 0;
   width: 100%;
   height: 70px;
-  background: white;
-  z-index: 1000;
+  background-color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
   border-bottom: 1px solid #e5e7eb;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+
+  @media (max-width: 768px) {
+    height: 60px;
+    padding: 10px 2rem;
+  }
+
+  @media (max-width: 480px) {
+    height: 56px;
+    padding: 0 0.75rem;
+  }
 }
 
 .left {
   display: flex;
   align-items: center;
   gap: 169px;
+
+  // Adjust gap for different screen sizes
+  @media (max-width: 1200px) {
+    gap: 100px;
+  }
+
+  @media (max-width: 992px) {
+    gap: 60px;
+  }
+
+  // Logo responsive sizing
+  img {
+    @media (max-width: 768px) {
+      width: 120px !important;
+      height: auto !important;
+    }
+
+    @media (max-width: 480px) {
+      width: 100px !important;
+      height: auto !important;
+    }
+  }
 }
 
 .search {
@@ -29,11 +60,10 @@ $color-primary: #213f7d;
   overflow: hidden;
   height: 40px;
 
-
-  // @media (max-width: 760px) {
-  //   display: hidden;
-  //   background: #000;
-  // }
+  // Hide search on tablet and smaller screens
+  @media (max-width: 768px) {
+    display: none;
+  }
 
   input {
     border: none;
@@ -42,6 +72,15 @@ $color-primary: #213f7d;
     font-size: 14px;
     width: 400px;
     color: #545f7d;
+
+    // Adjust input width for medium screens
+    @media (max-width: 1200px) {
+      width: 300px;
+    }
+
+    @media (max-width: 992px) {
+      width: 250px;
+    }
 
     &::placeholder {
       color: #545f7d;
@@ -68,10 +107,44 @@ $color-primary: #213f7d;
   align-items: center;
   gap: 1.5rem;
 
+  // Reduce gaps on smaller screens
+  @media (max-width: 768px) {
+    gap: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    gap: 0.75rem;
+  }
+
   a {
     color: #1e3a8a;
     text-decoration: underline;
     font-size: 14px;
+
+    // Hide "Docs" link on mobile
+    @media (max-width: 640px) {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 13px;
+    }
+  }
+
+  .alert-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 20px;
+      height: 20px;
+
+      @media (max-width: 480px) {
+        width: 18px;
+        height: 18px;
+      }
+    }
   }
 }
 
@@ -80,22 +153,53 @@ $color-primary: #213f7d;
   align-items: center;
   gap: 0.5rem;
 
+  @media (max-width: 480px) {
+    gap: 0.25rem;
+  }
+
   span {
     color: #1e3a8a;
     font-size: 14px;
+
+    @media (max-width: 640px) {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 13px;
+    }
   }
 
   img {
     border-radius: 50%;
+
+    // Responsive avatar sizing
+    @media (max-width: 768px) {
+      width: 40px !important;
+      height: 40px !important;
+    }
+
+    @media (max-width: 480px) {
+      width: 36px !important;
+      height: 36px !important;
+    }
   }
 
   .arrow {
     font-size: 12px;
+
+    // Hide arrow on small screens
+    @media (max-width: 640px) {
+      display: none;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 10px;
+    }
   }
 }
 
 //SIDENAVIGATION
-
 .side_navigation {
   width: 283px;
   height: 100vh;
@@ -105,6 +209,10 @@ $color-primary: #213f7d;
   overflow: hidden;
   flex-direction: column;
   transition: width 0.3s ease;
+  top: 70px;
+  left: 0px;
+  position: absolute;
+  // z-index: 1000;
 
   // Mobile responsive breakpoints
   @media (max-width: 768px) {
@@ -116,7 +224,7 @@ $color-primary: #213f7d;
   }
 
   .organization_switcher {
-    padding: 20px 24px;
+    padding: 15px 24px;
     border-bottom: 1px solid #f3f4f6;
     flex-shrink: 0;
     display: flex;
@@ -141,12 +249,9 @@ $color-primary: #213f7d;
     .org_icon {
       width: 32px;
       height: 32px;
-      background: #39cdcc;
-      border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: white;
       flex-shrink: 0;
 
       @media (max-width: 480px) {
@@ -181,9 +286,10 @@ $color-primary: #213f7d;
     flex: 1;
     overflow-y: auto;
     background: white;
-    padding: 20px 0;
+    padding: 10px 0;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    margin-bottom: 60px;
 
     @media (max-width: 768px) {
       padding: 16px 0;
@@ -209,7 +315,7 @@ $color-primary: #213f7d;
       }
 
       .section_title {
-        font-size: 12px;
+        font-size: 14px;
         font-weight: 500;
         color: #545f7d;
         text-transform: uppercase;
@@ -232,7 +338,7 @@ $color-primary: #213f7d;
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 6px 24px;
+            padding: 10px 24px;
             border: none;
             background: none;
             color: $color-primary;

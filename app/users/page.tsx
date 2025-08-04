@@ -1,3 +1,5 @@
+import { Dashboard } from '@/features/dashboard';
+import { DashboardLayout } from '@/layout';
 import { Metadata } from 'next';
 import React from 'react'
 
@@ -7,7 +9,9 @@ export const metadata: Metadata = {
 
 const UsersPage = () => {
   return (
-    <div>page</div>
+     <DashboardLayout>
+      <Dashboard />
+    </DashboardLayout>
   )
 }
 

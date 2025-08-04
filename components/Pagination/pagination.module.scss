@@ -1,0 +1,58 @@
+.pagination_container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  font-size: 14px;
+  color: #545F7D;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.label{
+    font-size: 14px;
+    font-weight: 500;
+    
+}
+
+.select {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 14px;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.page_btn {
+  padding: 0.25rem 0.5rem;
+  border: none;
+  cursor: pointer;
+  background-color: #FBFBFB;
+}
+
+.arrow {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+  min-width: 32px;
+}
+
+.active {
+  color: #000;
+}
+
+.ellipsis {
+  padding: 0 0.5rem;
+  color: #545f7d;
+}
