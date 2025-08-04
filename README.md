@@ -1,6 +1,6 @@
 # Lendsqr User Management Interface
 
-![Alt text](./src/assets/leadsqr-screenshot.png)
+![Alt text](./public/assets/leadsqr-screenshot.png)
 
 This project is a frontend implementation of the **Lendsqr User Management Dashboard**, built as part of a technical assessment for a frontend engineering role at **Lendsqr**. The application is developed using **React**, **TypeScript**, and **SCSS**, following best practices for performance, structure, and reusability.
 
