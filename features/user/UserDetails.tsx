@@ -3,17 +3,17 @@
 import React, { useEffect } from "react";
 import styles from "./users.module.scss";
 import { AppIcons } from "@/elements";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { loadUserFromStorage } from "@/redux/users-slice";
 
-const UserDetails: React.FC<{ params: { id: string } }> = ({ params }) => {
+const UserDetails: React.FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user.selectedUser);
-  const userId = Number(params.id);
-  console.log(userId, "---userId");
+    const { userId } = useParams();
+  // const userId = Number(params.id);
 
   useEffect(() => {
     if (!user) {
