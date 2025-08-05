@@ -217,6 +217,7 @@ $color-primary: #213f7d;
   // Mobile responsive breakpoints
   @media (max-width: 768px) {
     width: 70px;
+    display:none;
   }
 
   @media (max-width: 480px) {

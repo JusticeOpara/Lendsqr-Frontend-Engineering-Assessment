@@ -79,6 +79,11 @@ npm run build
 ### 📱 **Responsive by Default**
 
 * Layout adapts to various screen sizes using grid/flexbox and media queries.
+  
+### 🧪 **Testing Ready**
+
+* Wrote components and utilities to be **easily testable** with unit or integration tests.
+* Utility functions are decoupled from UI for testability.
 
 ## 📬 Feedback
 

@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import auth from "./auth.module.scss";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
-import { login } from "@/redux/authSlice";
+import { login } from "@/redux/auth-slice";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -16,17 +16,16 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  
   const handleLogin = () => {
     if (email && password) {
       // Create a proper user object to match your Redux state
       const user = {
-        id: Date.now().toString(), 
+        id: Date.now().toString(),
         name: email.split("@")[0],
-        email
+        email,
       };
-      console.log(user,"--user user")
-      dispatch(login(user)); 
+      console.log(user, "--user user");
+      dispatch(login(user));
       router.push("/users");
     }
   };
@@ -46,6 +45,7 @@ const LoginForm = () => {
           <input
             type="email"
             placeholder="Email"
+            inputMode="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />

@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { AppIcons } from "@/elements";
-import styles from "./filter.module.scss"
-
+import styles from "./filter.module.scss";
 
 const FilterModal: React.FC<{
   isOpen: boolean;
@@ -61,6 +60,12 @@ const FilterModal: React.FC<{
 
   return (
     <>
+      <div
+        className={styles.modal_overlay}
+        onClick={onClose}
+        data-testid="modal-overlay"
+      />
+
       <div className={styles.modal_overlay} onClick={onClose} />
       <div
         ref={modalRef}
@@ -88,7 +93,7 @@ const FilterModal: React.FC<{
                 <option value="irorun">Irorun</option>
                 <option value="lendstar">Lendstar</option>
               </select>
-             <span>{AppIcons.ic_dropdown}</span>  
+              <span>{AppIcons.ic_dropdown}</span>
             </div>
           </div>
 
@@ -117,15 +122,14 @@ const FilterModal: React.FC<{
           <div className={styles.form_group}>
             <label className={styles.form_label}>Date</label>
             {/* <div className={styles.date_input_wrapper}> */}
-              <input
-                type="date"
-                
-                className={`${styles.form_input} ${styles.date_input}`}
-                placeholder="Date"
-                value={formData.date}
-                onChange={(e) => handleInputChange("date", e.target.value)}
-              />
-             {/* <span>{AppIcons.ic_calendar}</span>   */}
+            <input
+              type="date"
+              className={`${styles.form_input} ${styles.date_input}`}
+              placeholder="Date"
+              value={formData.date}
+              onChange={(e) => handleInputChange("date", e.target.value)}
+            />
+            {/* <span>{AppIcons.ic_calendar}</span>   */}
             {/* </div> */}
           </div>
 
@@ -159,10 +163,18 @@ const FilterModal: React.FC<{
           </div>
 
           <div className={styles.form_actions}>
-            <button type="button" className={styles.reset_btn} onClick={handleReset}>
+            <button
+              type="button"
+              className={styles.reset_btn}
+              onClick={handleReset}
+            >
               Reset
             </button>
-            <button type="button" className={styles.filter_btn} onClick={handleFilter}>
+            <button
+              type="button"
+              className={styles.filter_btn}
+              onClick={handleFilter}
+            >
               Filter
             </button>
           </div>

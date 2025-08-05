@@ -58,6 +58,7 @@ const Dashboard = () => {
 
       <div className={styles.table_container}>
         <Table columns={columns} data={paginatedData} />
+
         <Pagination
           currentPage={currentPage}
           totalItems={users.length}

@@ -7,11 +7,14 @@ export const metadata: Metadata = {
   title: "Leadsqr UserDetails",
 };
 
+import { useParams } from 'next/navigation';
+
 const UserDetailsPage = () => {
+  const params = useParams<{ id: string }>();
 
   return (
     <DashboardLayout>
-       <UserDetails/>
+      <UserDetails params={{ id: params.id }} />
     </DashboardLayout>
   )
 }

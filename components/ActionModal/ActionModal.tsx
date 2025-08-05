@@ -3,6 +3,9 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import styles from "./actionmodal.module.scss";
 import { AppIcons } from "@/elements";
+import { useDispatch } from "react-redux";
+import { setSelectedUser } from "@/redux/users-slice";
+import user_details from "@/mock-data/users-details";
 
 interface ActionProps {
   isOpen: boolean;
@@ -19,6 +22,25 @@ const ActionModal: React.FC<ActionProps> = ({
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const { replace } = useRouter();
+  const dispatch = useDispatch();
+  
+
+  const handleViewUser = () => {
+    const userId = Number(rowData.id);
+    const fullUser = user_details.find(
+      (user) => user.personalInformation.id === userId
+    );
+    console.log(fullUser, "--fullUser");
+
+    if (fullUser) {
+      dispatch(setSelectedUser(fullUser));
+      localStorage.setItem("selectedUser", JSON.stringify(fullUser));
+      replace(`/users/${userId}`);
+      onClose();
+    } else {
+      console.error("User not found for id:", rowData.id);
+    }
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -33,17 +55,10 @@ const ActionModal: React.FC<ActionProps> = ({
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen, onClose]);
-
-  const handleViewDetails = (id: string) => {
-    console.log("View Details for:", rowData);
-    replace(`/users/${id}`);
-    onClose();
-  };
 
   const handleBlacklistUser = () => {
     console.log("Blacklist User:", rowData);
@@ -70,7 +85,8 @@ const ActionModal: React.FC<ActionProps> = ({
     >
       <div
         className={styles.action_menu_item}
-        onClick={() => handleViewDetails(rowData.id)}
+        onClick={() => handleViewUser}
+        // onClick={() => handleViewDetails(rowData.id)}
       >
         <span className={styles.icon_menu}>{AppIcons.ic_eye}</span>
         <span>View Details</span>

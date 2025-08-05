@@ -1,18 +1,31 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./users.module.scss";
 import { AppIcons } from "@/elements";
 import { useRouter } from "next/navigation";
-import user_details from "@/mock-data/users-details";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { loadUserFromStorage } from "@/redux/users-slice";
 
-const UserDetails: React.FC = () => {
+const UserDetails: React.FC<{ params: { id: string } }> = ({ params }) => {
   const router = useRouter();
-  const [userDetail, setUserDetail] = useState([]);
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user.selectedUser);
+  const userId = Number(params.id);
+  console.log(userId, "---userId");
+
+  useEffect(() => {
+    if (!user) {
+      dispatch(loadUserFromStorage());
+    }
+  }, [dispatch, user]);
 
   const handleGoBack = () => {
     router.push("/users");
   };
+  console.log(user, "--user user");
+  if (!user) return <div>Loading...</div>;
 
   return (
     <div className={styles.user_details_page}>
@@ -44,8 +57,12 @@ const UserDetails: React.FC = () => {
         <div className={styles.user_avatar}></div>
 
         <div className={styles.user_info}>
-          <div className={styles.user_name}>Grace Effiom</div>
-          <div className={styles.user_id}>LSQFf587g90</div>
+          <div className={styles.user_name}>
+            {user.personalInformation.fullName || "N/A"}
+          </div>
+          <div className={styles.user_id}>
+            {user.organizationDetails.userNumber || "N/A"}
+          </div>
         </div>
 
         <div className={styles.user_tier}>
@@ -58,8 +75,12 @@ const UserDetails: React.FC = () => {
         </div>
 
         <div className={styles.user_balance}>
-          <div className={styles.balance_amount}>₦200,000.00</div>
-          <div className={styles.bank_info}>9912345678/Providus Bank</div>
+          <div className={styles.balance_amount}>
+            {user.organizationDetails.accountBalance || "N/A"}
+          </div>
+          <div className={styles.bank_info}>
+            {user.organizationDetails.bankName || "N/A"}
+          </div>
         </div>
       </div>
 
@@ -81,35 +102,51 @@ const UserDetails: React.FC = () => {
           <div className={styles.user_grid}>
             <div className={styles.user_item}>
               <p className={styles.user_label}>Full Name</p>
-              <p className={styles.user_value}>Grace Effiom</p>
+              <p className={styles.user_value}>
+                {user.personalInformation.fullName || "N/A"}
+              </p>
             </div>
             <div className={styles.user_item}>
               <p className={styles.user_label}>Phone Number</p>
-              <p className={styles.user_value}>07060780922</p>
+              <p className={styles.user_value}>
+                {user.personalInformation.phoneNumber || "N/A"}
+              </p>
             </div>
             <div className={styles.user_item}>
               <p className={styles.user_label}>Email Address</p>
-              <p className={styles.user_value}>grace@gmail.com</p>
+              <p className={styles.user_value}>
+                {user.personalInformation.email || "N/A"}
+              </p>
             </div>
             <div className={styles.user_item}>
               <p className={styles.user_label}>BVN</p>
-              <p className={styles.user_value}>07060780922</p>
+              <p className={styles.user_value}>
+                {user.personalInformation.bvn || "N/A"}
+              </p>
             </div>
             <div className={styles.user_item}>
               <p className={styles.user_label}>Gender</p>
-              <p className={styles.user_value}>Female</p>
+              <p className={styles.user_value}>
+                {user.personalInformation.gender || "N/A"}
+              </p>
             </div>
             <div className={styles.user_item}>
               <p className={styles.user_label}>Marital Status</p>
-              <p className={styles.user_value}>Single</p>
+              <p className={styles.user_value}>
+                {user.personalInformation.maritalStatus || "N/A"}
+              </p>
             </div>
             <div className={styles.user_item}>
               <p className={styles.user_label}>Children</p>
-              <p className={styles.user_value}>None</p>
+              <p className={styles.user_value}>
+                {user.personalInformation.children || "N/A"}
+              </p>
             </div>
             <div className={styles.user_item}>
               <p className={styles.user_label}>Type of Residence</p>
-              <p className={styles.user_value}>Parent’s Apartment</p>
+              <p className={styles.user_value}>
+                {user.personalInformation.typeOfResidence || "N/A"}
+              </p>
             </div>
           </div>
         </section>
@@ -119,31 +156,45 @@ const UserDetails: React.FC = () => {
           <div className={styles.user_grid}>
             <div className={styles.user_item}>
               <p className={styles.user_label}>Level of Education</p>
-              <p className={styles.user_value}>B.Sc</p>
+              <p className={styles.user_value}>
+                {user.educationAndEmployment.levelOfEducation || "N/A"}
+              </p>
             </div>
             <div className={styles.user_item}>
               <p className={styles.user_label}>Employment Status</p>
-              <p className={styles.user_value}>Employed</p>
+              <p className={styles.user_value}>
+                {user.educationAndEmployment.employmentStatus || "N/A"}
+              </p>
             </div>
             <div className={styles.user_item}>
               <p className={styles.user_label}>Sector of Employment</p>
-              <p className={styles.user_value}>FinTech</p>
+              <p className={styles.user_value}>
+                {user.educationAndEmployment.sectorOfEmployment || "N/A"}
+              </p>
             </div>
             <div className={styles.user_item}>
               <p className={styles.user_label}>Duration of Employment</p>
-              <p className={styles.user_value}>2 years</p>
+              <p className={styles.user_value}>
+                {user.educationAndEmployment.durationOfEmployment || "N/A"}
+              </p>
             </div>
             <div className={styles.user_item}>
               <p className={styles.user_label}>Office Email</p>
-              <p className={styles.user_value}>grace@lendsqr.com</p>
+              <p className={styles.user_value}>
+                {user.educationAndEmployment.officeEmail || "N/A"}
+              </p>
             </div>
             <div className={styles.user_item}>
               <p className={styles.user_label}>Monthly Income</p>
-              <p className={styles.user_value}>₦200,000 - ₦400</p>
+              <p className={styles.user_value}>
+                {user.educationAndEmployment.monthlyIncome || "N/A"}
+              </p>
             </div>
             <div className={styles.user_item}>
               <p className={styles.user_label}>Loan Repayment</p>
-              <p className={styles.user_value}>40,000</p>
+              <p className={styles.user_value}>
+                {user.educationAndEmployment.loanRepayment || "N/A"}
+              </p>
             </div>
           </div>
         </section>
@@ -153,17 +204,23 @@ const UserDetails: React.FC = () => {
           <div className={styles.user_grid}>
             <div className={styles.user_item}>
               <p className={styles.user_label}>Twitter</p>
-              <p className={styles.user_value}>@grace_effiom</p>
+              <p className={styles.user_value}>
+                {user.socials.twitter || "N/A"}
+              </p>
             </div>
 
             <div className={styles.user_item}>
               <p className={styles.user_label}>Facebook</p>
-              <p className={styles.user_value}>Grace Effiom</p>
+              <p className={styles.user_value}>
+                {user.socials.facebook || "N/A"}
+              </p>
             </div>
 
             <div className={styles.user_item}>
               <p className={styles.user_label}>Instagram</p>
-              <p className={styles.user_value}>@grace_effiom</p>
+              <p className={styles.user_value}>
+                {user.socials.instagram || "N/A"}
+              </p>
             </div>
           </div>
         </section>
@@ -173,19 +230,27 @@ const UserDetails: React.FC = () => {
           <div className={styles.user_grid}>
             <div className={styles.user_item}>
               <p className={styles.user_label}>Full Name </p>
-              <p className={styles.user_value}>Debby Ogana</p>
+              <p className={styles.user_value}>
+                {user.guarantor.fullName || "N/A"}
+              </p>
             </div>
             <div className={styles.user_item}>
               <p className={styles.user_label}>Phone Number</p>
-              <p className={styles.user_value}>0704368304</p>
+              <p className={styles.user_value}>
+                {user.guarantor.phoneNumber || "N/A"}
+              </p>
             </div>
             <div className={styles.user_item}>
               <p className={styles.user_label}>Email Address</p>
-              <p className={styles.user_value}>debby@gmail.com</p>
+              <p className={styles.user_value}>
+                {user.guarantor.email || "N/A"}
+              </p>
             </div>
             <div className={styles.user_item}>
               <p className={styles.user_label}>Relationship</p>
-              <p className={styles.user_value}>Sister</p>
+              <p className={styles.user_value}>
+                {user.guarantor.relationship || "N/A"}
+              </p>
             </div>
           </div>
         </section>
